@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - ChefCode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --copper-rose: #b87333;
+            --sage-green: #9caf88;
+            --warm-white: #fafafa;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--warm-white);
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--copper-rose), var(--sage-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--copper-rose);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .form-card {
+            background: rgba(250, 250, 250, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(184, 115, 51, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .form-card:hover {
+            border-color: var(--copper-rose);
+            box-shadow: 0 20px 40px rgba(184, 115, 51, 0.1);
+        }
+        
+        .contact-card {
+            background: rgba(250, 250, 250, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 175, 136, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--sage-green);
+        }
+        
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .form-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(107, 114, 128, 0.5);
+            color: var(--warm-white);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: var(--copper-rose);
+            box-shadow: 0 0 0 3px rgba(184, 115, 51, 0.1);
+            outline: none;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(156, 163, 175, 0.7);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black bg-opacity-80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold gradient-text">ChefCode</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white">Home</a>
+                    <a href="features.html" class="nav-link text-gray-300 hover:text-white">Features</a>
+                    <a href="about.html" class="nav-link text-gray-300 hover:text-white">About</a>
+                    <a href="contact.html" class="nav-link text-orange-400">Contact</a>
+                </div>
+                <button class="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all">
+                    Request Demo
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="reveal-element">
+                <h1 class="text-5xl lg:text-6xl font-bold mb-6">
+                    Get in <span class="gradient-text">Touch</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                    Ready to transform your kitchen operations? Contact us to schedule a personalized demo 
+                    and see how ChefCode can revolutionize your restaurant.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form & Info -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Form -->
+                <div class="reveal-element">
+                    <div class="form-card p-8 rounded-2xl">
+                        <h2 class="text-3xl font-bold mb-8">
+                            Request a <span class="gradient-text">Demo</span>
+                        </h2>
+                        
+                        <form id="demoForm" class="space-y-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="firstName" class="block text-sm font-medium mb-2">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required 
+                                           class="form-input w-full px-4 py-3 rounded-lg" 
+                                           placeholder="John">
+                                </div>
+                                <div>
+                                    <label for="lastName" class="block text-sm font-medium mb-2">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required 
+                                           class="form-input w-full px-4 py-3 rounded-lg" 
+                                           placeholder="Smith">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-2">Email Address *</label>
+                                <input type="email" id="email" name="email" required 
+                                       class="form-input w-full px-4 py-3 rounded-lg" 
+                                       placeholder="john@restaurant.com">
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-sm font-medium mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" 
+                                       class="form-input w-full px-4 py-3 rounded-lg" 
+                                       placeholder="(555) 123-4567">
+                            </div>
+                            
+                            <div>
+                                <label for="restaurantName" class="block text-sm font-medium mb-2">Restaurant Name *</label>
+                                <input type="text" id="restaurantName" name="restaurantName" required 
+                                       class="form-input w-full px-4 py-3 rounded-lg" 
+                                       placeholder="The Gourmet Kitchen">
+                            </div>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="restaurantType" class="block text-sm font-medium mb-2">Restaurant Type</label>
+                                    <select id="restaurantType" name="restaurantType" 
+                                            class="form-input w-full px-4 py-3 rounded-lg">
+                                        <option value="">Select Type</option>
+                                        <option value="fine-dining">Fine Dining</option>
+                                        <option value="casual">Casual Dining</option>
+                                        <option value="fast-casual">Fast Casual</option>
+                                        <option value="cafe">Café/Bistro</option>
+                                        <option value="hotel">Hotel Restaurant</option>
+                                        <option value="catering">Catering</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="location" class="block text-sm font-medium mb-2">Location</label>
+                                    <input type="text" id="location" name="location" 
+                                           class="form-input w-full px-4 py-3 rounded-lg" 
+                                           placeholder="San Francisco, CA">
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label for="employees" class="block text-sm font-medium mb-2">Number of Employees</label>
+                                <select id="employees" name="employees" 
+                                        class="form-input w-full px-4 py-3 rounded-lg">
+                                    <option value="">Select Range</option>
+                                    <option value="1-10">1-10 employees</option>
+                                    <option value="11-25">11-25 employees</option>
+                                    <option value="26-50">26-50 employees</option>
+                                    <option value="51-100">51-100 employees</option>
+                                    <option value="100+">100+ employees</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="challenges" class="block text-sm font-medium mb-2">Current Challenges</label>
+                                <textarea id="challenges" name="challenges" rows="4" 
+                                          class="form-input w-full px-4 py-3 rounded-lg" 
+                                          placeholder="What are your biggest challenges in kitchen management?"></textarea>
+                            </div>
+                            
+                            <div>
+                                <label for="demoTime" class="block text-sm font-medium mb-2">Preferred Demo Time</label>
+                                <select id="demoTime" name="demoTime" 
+                                        class="form-input w-full px-4 py-3 rounded-lg">
+                                    <option value="">Select Time</option>
+                                    <option value="morning">Morning (9AM - 12PM)</option>
+                                    <option value="afternoon">Afternoon (12PM - 5PM)</option>
+                                    <option value="evening">Evening (5PM - 8PM)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="flex items-start space-x-3">
+                                <input type="checkbox" id="newsletter" name="newsletter" 
+                                       class="mt-1 w-4 h-4 text-orange-500 bg-gray-800 border-gray-600 rounded focus:ring-orange-500">
+                                <label for="newsletter" class="text-sm text-gray-300">
+                                    I'd like to receive updates about ChefCode features and industry insights
+                                </label>
+                            </div>
+                            
+                            <button type="submit" 
+                                    class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-8 rounded-lg text-lg font-semibold hover:shadow-xl transition-all transform hover:scale-105">
+                                Request Demo
+                            </button>
+                        </form>
+                        
+                        <div id="successMessage" class="success-message p-6 rounded-lg mt-6 hidden">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-green-400 text-2xl">✅</div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-green-400">Thank you!</h3>
+                                    <p class="text-gray-300">We'll be in touch within 24 hours to schedule your personalized demo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="reveal-element">
+                    <div class="space-y-8">
+                        <div class="contact-card p-8 rounded-2xl">
+                            <div class="text-4xl mb-6">📞</div>
+                            <h3 class="text-2xl font-bold mb-4">Phone</h3>
+                            <p class="text-gray-300 mb-4">
+                                Speak directly with our team about your kitchen management needs.
+                            </p>
+                            <a href="tel:+1-555-CHEFCODE" class="text-orange-400 font-semibold hover:text-orange-300 transition-colors">
+                                +1 (555) CHEF-CODE
+                            </a>
+                        </div>
+                        
+                        <div class="contact-card p-8 rounded-2xl">
+                            <div class="text-4xl mb-6">✉️</div>
+                            <h3 class="text-2xl font-bold mb-4">Email</h3>
+                            <p class="text-gray-300 mb-4">
+                                Send us your questions and we'll respond within 24 hours.
+                            </p>
+                            <a href="mailto:hello@chefcode.ai" class="text-orange-400 font-semibold hover:text-orange-300 transition-colors">
+                                hello@chefcode.ai
+                            </a>
+                        </div>
+                        
+                        <div class="contact-card p-8 rounded-2xl">
+                            <div class="text-4xl mb-6">🏢</div>
+                            <h3 class="text-2xl font-bold mb-4">Office</h3>
+                            <p class="text-gray-300 mb-4">
+                                Visit us at our headquarters in San Francisco.
+                            </p>
+                            <address class="text-orange-400 font-semibold not-italic">
+                                123 Culinary District<br>
+                                San Francisco, CA 94105
+                            </address>
+                        </div>
+                        
+                        <div class="contact-card p-8 rounded-2xl">
+                            <div class="text-4xl mb-6">🕒</div>
+                            <h3 class="text-2xl font-bold mb-4">Business Hours</h3>
+                            <div class="text-gray-300 space-y-2">
+                                <div>Monday - Friday: 8:00 AM - 8:00 PM PST</div>
+                                <div>Saturday: 10:00 AM - 6:00 PM PST</div>
+                                <div>Sunday: Closed</div>
+                            </div>
+                            <div class="mt-4 text-sm text-orange-400">
+                                24/7 Support Available for Enterprise Customers
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-element">
+                <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+                    Frequently Asked <span class="gradient-text">Questions</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Quick answers to common questions about ChefCode
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-800 p-6 rounded-2xl reveal-element">
+                    <h3 class="text-xl font-bold mb-4">How long does implementation take?</h3>
+                    <p class="text-gray-300">
+                        Most restaurants are fully operational with ChefCode within 2-3 weeks. 
+                        Our team provides comprehensive training and support throughout the process.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-2xl reveal-element">
+                    <h3 class="text-xl font-bold mb-4">Can ChefCode integrate with my existing POS system?</h3>
+                    <p class="text-gray-300">
+                        Yes! ChefCode integrates seamlessly with major POS systems including Square, Toast, Clover, 
+                        and many others. Our team will handle the technical setup for you.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-2xl reveal-element">
+                    <h3 class="text-xl font-bold mb-4">What kind of ROI can I expect?</h3>
+                    <p class="text-gray-300">
+                        Most restaurants see a 25-40% reduction in food waste and 20-30% improvement in operational efficiency 
+                        within the first 6 months, typically resulting in ROI of 300-500%.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-2xl reveal-element">
+                    <h3 class="text-xl font-bold mb-4">Is my data secure?</h3>
+                    <p class="text-gray-300">
+                        Absolutely. We use enterprise-grade security with end-to-end encryption, 
+                        regular security audits, and full compliance with GDPR and industry standards.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-2xl reveal-element">
+                    <h3 class="text-xl font-bold mb-4">Do you offer training and support?</h3>
+                    <p class="text-gray-300">
+                        Yes! We provide comprehensive training for your entire team, ongoing support, 
+                        and regular check-ins to ensure you're getting the most out of ChefCode.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="text-2xl font-bold gradient-text mb-4">ChefCode</div>
+            <p class="text-gray-400 mb-6">The Future of Kitchen Management</p>
+            <p class="text-gray-500 text-sm">© 2024 ChefCode. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize scroll reveal animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 800,
+                            easing: 'easeOutExpo'
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.reveal-element').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Hide form and show success message
+                this.style.display = 'none';
+                document.getElementById('successMessage').classList.remove('hidden');
+                
+                // Animate success message
+                anime({
+                    targets: '#successMessage',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
+                    easing: 'easeOutExpo'
+                });
+            }, 2000);
+        });
+
+        // Add click handlers for demo buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButtons = document.querySelectorAll('button');
+            demoButtons.forEach(button => {
+                if (button.textContent.includes('Demo') || button.textContent.includes('Trial') || button.textContent.includes('Get Started')) {
+                    button.addEventListener('click', function(e) {
+                        if (this.type !== 'submit') {
+                            e.preventDefault();
+                            // Scroll to form
+                            document.getElementById('demoForm').scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
