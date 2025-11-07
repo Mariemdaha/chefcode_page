@@ -4,13 +4,11 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Serve static files from the current directory (images, CSS, JS, etc.)
-app.use(express.static(path.join(__dirname), {
-  // Don't serve index.html for static file requests
-  index: false
-}));
+// Serve static files (images, CSS, JS, etc.) from root directory
+// This MUST be before any route handlers
+app.use(express.static(__dirname));
 
-// Serve HTML files
+// Serve HTML pages
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -27,12 +25,14 @@ app.get('/contact.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'contact.html'));
 });
 
-// Handle all other routes by serving index.html (for client-side routing)
+// Catch-all for client-side routing (only for paths without file extensions)
 app.get('*', (req, res) => {
-  // Only serve index.html if it's not a file request (no extension)
+  // If the request has a file extension, it should have been handled by static middleware
+  // Only serve index.html for routes without extensions (SPA routing)
   if (!path.extname(req.path)) {
     res.sendFile(path.join(__dirname, 'index.html'));
   } else {
+    // If we reach here, the file wasn't found by static middleware
     res.status(404).send('File not found');
   }
 });
@@ -40,6 +40,9 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
 
 
 
